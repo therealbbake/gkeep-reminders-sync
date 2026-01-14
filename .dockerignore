@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.mypy_cache/
+.pytest_cache/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Mac
+.DS_Store
+
+# VCS
+.git/
+.gitignore
+
+# Local data and env files (mounted at runtime, not needed in build context)
+data/
+.env
+.env.*
+docker-compose*.yml

@@ -32,7 +32,8 @@ Required:
 
 Optional:
 - GKEEP_LIST_TITLE — Google Keep list title to read (default: Groceries)
-- REMINDERS_LIST_NAME — Apple Reminders list to add to (default: Groceries)
+- REMINDERS_LIST_NAME — Apple Reminders list to add to (used if SYNC_LIST_NAMES is not set; default: Groceries)
+- SYNC_LIST_NAMES — Comma-separated list names to sync; names must match in Keep and Reminders (e.g., Groceries,Hardware,Pharmacy)
 - ICLOUD_COOKIE_DIR — Path in container for iCloud cookies (default: /data/icloud)
 - SCHEDULE_INTERVAL_MINUTES — Sync interval in minutes (default: 5)
 - LOG_LEVEL — INFO, DEBUG, etc. (default: INFO)
@@ -42,6 +43,7 @@ Optional:
 1) Copy env template and fill in values:
    cp .env.example .env
    - Fill GKEEP_* and APPLE_* values
+   - Optionally set SYNC_LIST_NAMES=Groceries,Hardware,Pharmacy to sync multiple lists; otherwise single-list variables GKEEP_LIST_TITLE and REMINDERS_LIST_NAME are used
    - For first run with 2FA, provide APPLE_2FA_CODE from your Apple device (then remove after the session is trusted)
 
 2) Build and start:
@@ -79,6 +81,10 @@ Run:
 - Reads existing uncompleted tasks from the target Reminders list
 - Normalizes titles (lowercase, trim internal whitespace)
 - Only adds items from Keep that don’t already exist in that list
+
+## Syncing multiple lists
+- Provide SYNC_LIST_NAMES as a comma-separated list. For each name N, the app reads unchecked items from the Google Keep list titled N and adds missing items to the Apple Reminders list also titled N.
+- If SYNC_LIST_NAMES is not set, the app runs in single-list mode using GKEEP_LIST_TITLE -> REMINDERS_LIST_NAME.
 
 ## Troubleshooting
 - Google Keep auth errors:

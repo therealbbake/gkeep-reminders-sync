@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  gkeep-reminders-sync:
+    build: .
+    container_name: gkeep-reminders-sync
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Ensure the app persists iCloud session cookies in the mounted volume
+      - ICLOUD_COOKIE_DIR=/data/icloud
+    volumes:
+      - ./data:/data
+    # Uncomment to set timezone if desired
+    # environment:
+    #   - TZ=America/Chicago
