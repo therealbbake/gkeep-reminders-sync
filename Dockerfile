@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.12-alpine
 
 ENV PIP_NO_CACHE_DIR=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -11,7 +11,7 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy application
-COPY main.py /app/main.py
+COPY server.py /app/server.py
 
 # Data directory for iCloud cookies/session persistence
 RUN mkdir -p /data/icloud
@@ -21,4 +21,4 @@ VOLUME ["/data"]
 ENV SCHEDULE_INTERVAL_MINUTES=5 \
     LOG_LEVEL=INFO
 
-CMD ["python", "-u", "/app/main.py"]
+CMD ["python", "-u", "/app/server.py"]

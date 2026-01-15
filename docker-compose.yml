@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   gkeep-reminders-sync:
+    stdin_open: true
+    tty: true
     build: .
     container_name: gkeep-reminders-sync
     restart: unless-stopped
@@ -12,6 +14,8 @@ services:
       - ICLOUD_COOKIE_DIR=/data/icloud
     volumes:
       - ./data:/data
+    ports:
+      - "5000:5000"
     # Uncomment to set timezone if desired
     # environment:
     #   - TZ=America/Chicago
